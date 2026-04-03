@@ -1,29 +1,31 @@
-# Totem de Feedback Inteligente #
+# Totem de Feedback Inteligente
 
 A Flexmedia busca transformar espaços físicos em ambientes inteligentes, utilizando IA e sensores para medir engajamento e oferecer experiências personalizadas.
 
-🚩 ## O Problema ##
+🚩 ## O Problema
 A dificuldade de coletar e analisar o sentimento dos visitantes de forma automática e em tempo real em espaços culturais ou comerciais.
 
-💡 ## A Solução ##
+💡 ## A Solução
 Um Totem Inteligente que utiliza Processamento de Linguagem Natural (NLP) e Visão Computacional para interpretar feedbacks, classificar emoções e gerar dashboards analíticos para a gestão do espaço.
 
-🛠 ## Tecnologias Utilizadas ##
+🛠 ## Tecnologias Utilizadas
 Para garantir a viabilidade técnica e a integração exigida, as seguintes tecnologias foram selecionadas:
 
-**Linguagem:** _Python_ (pela versatilidade em IA e tratamento de dados).
+**Linguagem:** 
+_Python_ (pela versatilidade em IA e tratamento de dados).
 
-Inteligência Artificial:
+**Inteligência Artificial:**
+_TextBlob_ ou _Scikit-learn_ (Análise de sentimento).
+_OpenCV_ (Detecção de presença e expressões).
 
-TextBlob ou Scikit-learn (Análise de sentimento).
+**Banco de Dados:** 
+_SQLite_ (Armazenamento estruturado local e portabilidade).
 
-OpenCV (Detecção de presença e expressões).
+**Interface/Dashboard:** 
+_Streamlit_ (Interface web interativa e ágil).
 
-Banco de Dados: SQLite (Armazenamento estruturado local e portabilidade).
-
-Interface/Dashboard: Streamlit (Interface web interativa e ágil).
-
-Hardware (Opcional/Simulado): Microcontrolador ESP32 com sensor infravermelho.
+**Hardware (Opcional/Simulado):** 
+Microcontrolador _ESP32_ com sensor infravermelho.
 
 🏗 Arquitetura da Solução
 A arquitetura segue um pipeline de dados linear e eficiente:
