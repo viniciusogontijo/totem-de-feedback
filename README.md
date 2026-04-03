@@ -51,3 +51,41 @@ Alinhado com as diretrizes da Flexmedia, o projeto adota:
 **Anonimização:** Não são coletados dados sensíveis ou identificadores pessoais (LGPD friendly).
 
 **Integridade:** Validação de entradas para evitar registros corrompidos no banco de dados.
+
+### 🧠 Lógica de Machine Learning
+O modelo utiliza a Duração do Toque como feature para classificar a interação em dois tipos:
+
+**Toque Curto:** Geralmente associado a seleções rápidas.
+
+**Toque Longo:** Pode indicar dúvida ou uma interação específica configurada no totem.
+
+### 🛠️ Tecnologias Utilizadas
+**Linguagem:** Python 3.x
+
+**Banco de Dados:** SQLite (SQL)
+
+**IA/ML:** Scikit-Learn (Decision Tree Classifier)
+
+**Dashboard:** Streamlit
+
+**Manipulação de Dados:** Pandas
+
+### 📂 Estrutura do Projeto
+flexmedia-totem/
+├── src/                    # Código-fonte do projeto
+|   ├── data/               # Banco de dados SQLite (.db)
+|   ├── models/             # Modelos de ML treinados (.pkl)
+│   ├── database_setup.py   # Configuração inicial do banco SQL
+│   ├── ml_model.py         # Treinamento do modelo de Machine Learning
+│   ├── totem_service.py    # Simulação de sensores e integração com IA
+│   └── dashboard.py        # Interface visual com Streamlit
+├── requeridos.txt          # Dependências do projeto
+└── README.md               # Documentação
+
+### ⚙️ Como Executar o Projeto
+**Instalar Dependências:** python -m pip install -r requeridos.txt
+**Inicializar o Banco de Dados:** python src/database_setup.py
+**Treinar a Inteligência Artificial:** python src/ml_model.py
+**Simular Interações do Totem:** python src/totem_service.py
+**Iniciar o Dashboard:** streamlit run src/dashboard.py
+_O dashboard abrirá automaticamente no seu navegador padrão (geralmente em http://localhost:8501)_
