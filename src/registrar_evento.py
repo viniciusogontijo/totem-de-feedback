@@ -1,6 +1,4 @@
 import sqlite3
-import random
-import time
 import os
 
 def registrar_evento(tipo, duracao, nota, texto):
@@ -24,13 +22,3 @@ def registrar_evento(tipo, duracao, nota, texto):
     except Exception as e:
         print(f"Erro ao salvar:{e}")
         return False
-    
-if __name__ == "__main__":
-    print("Simulando interações no totem...")
-    for _ in range(5):
-        tipo = random.choice(["Curto", "Longo"])
-        duracao = round(random.uniform(1.0, 15.0), 2)
-        nota = random.randint(1, 5)
-        registrar_evento(tipo, duracao, nota, "Feedback automático via sensor")
-        time.sleep(0.5)
-    print("simulação concluída.")
