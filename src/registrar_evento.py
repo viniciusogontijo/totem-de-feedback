@@ -1,7 +1,11 @@
 import sqlite3
 import os
+import re
 
-def registrar_evento(tipo, duracao, nota, texto):
+def limpar_texto(texto):
+    return re.sub(r'[^\w\s,.!?]', '', texto)
+
+def registrar_evento(tipo, duracao, nota, texto, sentimento="Neutro", totem_id= 1):
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(base_dir,'data', 'flexmedia_totem.db')
@@ -11,11 +15,11 @@ def registrar_evento(tipo, duracao, nota, texto):
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
-        texto_limpo = texto.strip() if texto else "Sem comentário"
+        texto_limpo = limpar_texto(texto) if texto else "Sem comentário"
 
-        query = "insert into interacoes (tipo_interacao, duracao_segundos, nota_satisfacao, feedback_texto) values(?, ?, ?, ?)"
+        query = "insert into interacoes (tipo_interacao, duracao_segundos, nota_satisfacao, sentimento, feedback_texto, totem_id) values(?, ?, ?, ?, ?, ?)"
 
-        cursor.execute(query, (tipo, duracao, nota, texto_limpo))
+        cursor.execute(query, (tipo, duracao, nota, sentimento, texto_limpo, totem_id))
         conn.commit()
         conn.close()
         return True
