@@ -6,27 +6,35 @@ import pandas as pd
 
 from registrar_evento import registrar_evento
 
-try:
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(base_dir,'models', 'classificador_toque.pkl')
+def classificar_sentimento_simulado(nota):
+    #simulaça de nlp só para demonstra o fluxo de analise)
+    if nota >= 4: return "Positivo"
+    if nota <= 2: return "Negativo"
+    return "Neutro"
 
-    modelo_ia = joblib.load(db_path)
-except:
-    print("Erro: Modelo não encontrado! Rode o ml_model.py primeiro.")
-    exit()
+def executar_totem():
 
-def registrar_evento_ia(duracao, nota, texto):
-    X_novo = pd.DataFrame([[duracao]], columns=['duracao'])
-    predicao = modelo_ia.predict(X_novo)
-    tipo_ia = "Longo" if predicao[0] == 1 else "Curto"
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(base_dir,'models', 'classificador_toque.pkl')
+        modelo_ia = joblib.load(db_path)
+        print("Status: Sensores Online.") #simula entrda de dados via leitor esp32
+    except:
+        print("Erro: Modelo não inicializado.")
+        return
+    for i in range(3):
+        print(f"Capturando interação {i + 1}...")
+        duracao = round(random.uniform(0.1, 10.0), 2)
+        nota = random.randint(1, 5)
 
-    return registrar_evento(tipo_ia, duracao, nota, texto)
+        #Predição IA
+        tipo_ia = "Longo" if modelo_ia.predict([[duracao]])[0] == 1 else "Curto"
+
+        #Analise de sentimento nlp simulado
+        sentimento = classificar_sentimento_simulado(nota)
+        registrar_evento(tipo_ia, duracao, nota, "Interação automatizada", sentimento)
+        time.sleep(0.5)
 
 if __name__ == "__main__":
     print("Simulando interações no totem...")
-    for _ in range(5):
-        duracao = round(random.uniform(1.0, 15.0), 2)
-        nota = random.randint(1, 5)
-        registrar_evento_ia(duracao, nota, "Interação via IA")
-        time.sleep(0.5)
-    print("simulação concluída.")
+    executar_totem()
