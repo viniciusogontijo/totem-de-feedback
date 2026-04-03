@@ -20,7 +20,6 @@ def registrar_evento(tipo, duracao, nota, texto):
         cursor.execute(query, (tipo, duracao, nota, texto_limpo))
         conn.commit()
         conn.close()
-        print(f"📏 Tamanho do arquivo: {os.path.getsize(db_path)} bytes")
         return True
     except Exception as e:
         print(f"Erro ao salvar:{e}")

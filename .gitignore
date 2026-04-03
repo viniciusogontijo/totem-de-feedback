@@ -1,6 +1,6 @@
 __pycache__/
 *.py[cod]
 src/data/*.db
-models/*.pkl
+src/models/*.pkl
 .venv/
 .streamlit/
