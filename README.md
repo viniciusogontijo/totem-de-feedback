@@ -71,21 +71,18 @@ O modelo utiliza a Duração do Toque como feature para classificar a interaçã
 **Manipulação de Dados:** Pandas
 
 ### 📂 Estrutura do Projeto
-flexmedia-totem/
-├── src/                    # Código-fonte do projeto
-|   ├── data/               # Banco de dados SQLite (.db)
-|   ├── models/             # Modelos de ML treinados (.pkl)
-│   ├── database_setup.py   # Configuração inicial do banco SQL
-│   ├── ml_model.py         # Treinamento do modelo de Machine Learning
-│   ├── totem_service.py    # Simulação de sensores e integração com IA
-│   └── dashboard.py        # Interface visual com Streamlit
-├── requeridos.txt          # Dependências do projeto
-└── README.md               # Documentação
+![alt text](image.png)
 
 ### ⚙️ Como Executar o Projeto
+
 **Instalar Dependências:** python -m pip install -r requeridos.txt
+
 **Inicializar o Banco de Dados:** python src/database_setup.py
+
 **Treinar a Inteligência Artificial:** python src/ml_model.py
+
 **Simular Interações do Totem:** python src/totem_service.py
+
 **Iniciar o Dashboard:** streamlit run src/dashboard.py
+
 _O dashboard abrirá automaticamente no seu navegador padrão (geralmente em http://localhost:8501)_
