@@ -3,8 +3,17 @@ import pandas as pd
 import sqlite3
 import os
 
-st.set_page_config(page_title="Flexmedia Dashboard", layout="wide")
+st.set_page_config(page_title="Flexmedia Analytics", layout="wide")
+
+#Simula acesso 
+st.sidebar.title("Área Restrita")
+user = st.sidebar.text_input("Usuário")
+
+if user:
+    st.sidebar.success(f"Acesso concedido: {user}")
+
 st.title("Dashboard Flexmedia - Métricas")
+st.markdown("---")
 
 def carregar_dados():
     try:
@@ -15,6 +24,7 @@ def carregar_dados():
         
         conn = sqlite3.connect(db_path)
         df = pd.read_sql_query("select * from interacoes", conn)
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
         conn.close()
         return df
     except:
@@ -23,17 +33,30 @@ def carregar_dados():
 df = carregar_dados()
 
 if not df.empty:
-    col1, col2 = st.columns(2)
+    # Métricas 
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Total de Visitas", len(df))
+    m2.metric("NPS Médio", f"{round(df['nota_satisfacao'].mean(), 1)} / 5")
+    m3.metric("Sentimento Predominate", df['sentimento'].mode()[0])
 
+    # Analise
+    st.subheader("Volume de Engajamento")
+    df_tempo = df.set_index('timestamp').resample('min').count()
+    st.line_chart(df_tempo['id'])
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(base_dir,'models', 'metricas_ia.csv')
+    col1, col2 = st.columns(2)
     with col1:
-        st.metric("Total de Ativações", len(df))
-        st.write("### Histórico de Decisões da IA")
-        st.dataframe(df.sort_values(by='timestamp', ascending=False), use_container_width=True)
+        st.write("### Performance da IA")
+        metricas_ia = pd.read_csv(db_path)
+        st.table(metricas_ia)
 
     with col2:
-        st.metric("Média de Satifação", f"{round(df['nota_satisfacao'].mean(), 1)} / 5")
-        st.write("### Volume por Tipo de Interação")
-        st.bar_chart(df['tipo_interacao'].value_counts())
+        st.write("Distribuição de Sentimentos")
+        st.bar_chart(df['sentimento'].value_counts())
+    
+    st.info(f"**Informação:** O pico de interações ocorreu às {df['timestamp'].dt.hour.mode()[0]}h. O sentimento geral é {df['sentimento'].mode()[0]}." )
     
 else:
-    st.warning("Banco de dados não encontrado ou vazio. Execute os de simulação primeiro.")
+    st.error("Carregando...")
