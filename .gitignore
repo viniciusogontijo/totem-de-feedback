@@ -4,3 +4,5 @@ src/data/*.db
 src/models/*.pkl
 .venv/
 .streamlit/
+venv/
+.vscode

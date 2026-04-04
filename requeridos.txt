@@ -3,3 +3,5 @@ scikit-learn
 streamlit
 textblob
 opencv-python
+mediapipe==0.10.11
+joblib

@@ -60,7 +60,7 @@ O modelo utiliza a Duração do Toque como feature para classificar a interaçã
 **Toque Longo:** Pode indicar dúvida ou uma interação específica configurada no totem.
 
 ### 🛠️ Tecnologias Utilizadas
-**Linguagem:** Python 3.x
+**Linguagem:** Python 3.11
 
 **Banco de Dados:** SQLite (SQL)
 

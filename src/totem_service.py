@@ -2,9 +2,9 @@ import random
 import time
 import joblib
 import os
-import pandas as pd
 
 from registrar_evento import registrar_evento
+from detecta_service import detectar_presenca
 
 def classificar_sentimento_simulado(nota):
     #simulaça de nlp só para demonstra o fluxo de analise)
@@ -12,7 +12,9 @@ def classificar_sentimento_simulado(nota):
     if nota <= 2: return "Negativo"
     return "Neutro"
 
-def executar_totem():
+def executar_totem(modo_teste=False):
+
+    ARQUIVO_TESTE = "img/image.png"
 
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -22,6 +24,17 @@ def executar_totem():
     except:
         print("Erro: Modelo não inicializado.")
         return
+    
+    # verificando presença via mediapipe se tiver alguém segue no fluxo de ativação do totem
+    if modo_teste:
+        alguem_presente = detectar_presenca(ARQUIVO_TESTE)
+    else:
+        alguem_presente = detectar_presenca()
+    
+    if not alguem_presente:
+        print("Ninguém detectado.")
+        return
+
     for i in range(3):
         print(f"Capturando interação {i + 1}...")
         duracao = round(random.uniform(0.1, 10.0), 2)
@@ -36,5 +49,6 @@ def executar_totem():
         time.sleep(0.5)
 
 if __name__ == "__main__":
+    TESTE_SEM_CAM = True
     print("Simulando interações no totem...")
-    executar_totem()
+    executar_totem(modo_teste= TESTE_SEM_CAM)
