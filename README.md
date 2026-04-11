@@ -30,13 +30,15 @@ Microcontrolador _ESP32_ com sensor infravermelho.
 ### 🏗 Arquitetura da Solução
 A arquitetura segue um pipeline de dados linear e eficiente:
 
-**Coleta (Input):** Captura de texto via interface ou detecção de presença via sensor ESP32.
+**Captura (Visão):** O detecta_service.py utiliza a câmera para validar se há um visitante presente.
 
-**Processamento:** Limpeza de dados e aplicação de modelos de IA para classificação de sentimento.
+**Interação (ML/NLP):** Se detectado, o sistema processa a duração do toque (ML) e analisa o texto do feedback (NLP).
 
-**Armazenamento:** Registro da interação, nota e categoria de sentimento no banco SQL.
+**Resposta:** O totem gera uma mensagem automática de agradecimento ou suporte baseada no sentimento detectado.
 
-**Visualização:** Geração de gráficos de engajamento e métricas de satisfação em tempo real.
+**Persistência:** Todos os dados (incluindo o texto limpo e métricas de IA) são salvos no banco 
+
+**SQL.Analytics:** O dashboard consome o banco de dados para gerar insights de engajamento e correlação.
 
 ### 📊 Estratégia de Coleta de Dados
 A coleta será baseada em eventos de interação.
@@ -64,18 +66,25 @@ O modelo utiliza a Duração do Toque como feature para classificar a interaçã
 
 **Banco de Dados:** SQLite (SQL)
 
+**Visão Computacional:** MediaPipe (Google) para detecção facial de alta precisão.
+
+**Inteligência Artificial (NLP):** LeIA (VADER adaptado para Português) para análise de sentimento.
+
 **IA/ML:** Scikit-Learn (Decision Tree Classifier)
 
-**Dashboard:** Streamlit
+**Dashboard:** Streamlit e Plotly Express
 
 **Manipulação de Dados:** Pandas
+
+### 🔒 Segurança e Privacidade (LGPD)
+O projeto adota a **Anonimização de Dados:** imagens da câmera são processadas em tempo real apenas para detecção de presença e não são armazenadas no disco, garantindo a privacidade dos visitantes conforme as diretrizes da Flexmedia.
 
 ### 📂 Estrutura do Projeto
 ![alt text](image.png)
 
 ### ⚙️ Como Executar o Projeto
 
-**Instalar Dependências:** python -m pip install -r requeridos.txt
+**Instalar Dependências:** python -m pip install -r instalacao_lib.txt
 
 **Inicializar o Banco de Dados:** python src/database_setup.py
 

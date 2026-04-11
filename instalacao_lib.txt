@@ -5,3 +5,4 @@ leia-br
 opencv-python
 mediapipe==0.10.11
 joblib
+plotly
