@@ -51,7 +51,7 @@ def executar_totem(modo_teste=False):
         sentimento = analisar_sentimento_nlp(texto)
 
         #Analise de sentimento nlp simulado
-        registrar_evento(tipo_ia, duracao, nota, "Interação automatizada", sentimento)
+        registrar_evento(tipo_ia, duracao, nota, texto, sentimento)
         resposta = gerar_resposta_automatizada(sentimento)
         print(f"Totem diz: {resposta}")
         time.sleep(0.5)
