@@ -2,15 +2,11 @@ import random
 import time
 import joblib
 import os
+import pandas as pd
 
 from registrar_evento import registrar_evento
 from detecta_service import detectar_presenca
-
-def classificar_sentimento_simulado(nota):
-    #simulaça de nlp só para demonstra o fluxo de analise)
-    if nota >= 4: return "Positivo"
-    if nota <= 2: return "Negativo"
-    return "Neutro"
+from analisar_texto import analisar_sentimento_nlp, gerar_resposta_automatizada
 
 def executar_totem(modo_teste=False):
 
@@ -40,12 +36,24 @@ def executar_totem(modo_teste=False):
         duracao = round(random.uniform(0.1, 10.0), 2)
         nota = random.randint(1, 5)
 
+        comentarios = [
+            "Amei a exposição!",
+            "Muito confuso o caminho.",
+            "Espaço agradável.",
+            "Faltou informação nas placas."
+        ]
+        texto = random.choice(comentarios)
+
         #Predição IA
-        tipo_ia = "Longo" if modelo_ia.predict([[duracao]])[0] == 1 else "Curto"
+        entrada_ia = pd.DataFrame([[duracao]], columns=['duracao'])
+        tipo_ia = "Longo" if modelo_ia.predict(entrada_ia)[0] == 1 else "Curto"
+
+        sentimento = analisar_sentimento_nlp(texto)
 
         #Analise de sentimento nlp simulado
-        sentimento = classificar_sentimento_simulado(nota)
         registrar_evento(tipo_ia, duracao, nota, "Interação automatizada", sentimento)
+        resposta = gerar_resposta_automatizada(sentimento)
+        print(f"Totem diz: {resposta}")
         time.sleep(0.5)
 
 if __name__ == "__main__":
