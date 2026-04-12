@@ -1,21 +1,31 @@
 totem-de-feedback/
 │
-├── README.md                       # Documentação principal, guia de execução e link do vídeo
-├── instalacao_lib.txt              # Lista de dependências e bibliotecas do projeto
+├── backend/                        # Cérebro do sistema (Lógica e API)
+│   ├── server.py                   # API FastAPI (Centraliza NLP, ML e Banco)
+│   ├── analisar_texto.py           # Processamento de Linguagem Natural (LeIA)
+│   ├── detecta_service.py          # Visão Computacional (MediaPipe)
+│   ├── ml_model.py                 # Treinamento e métricas do classificador
+│   ├── registrar_evento.py         # Funções de persistência no banco
+│   ├── database_setup.py           # Script de criação das tabelas SQL
+│   └── totem_service.py            # Versão legada para terminal (opcional)
 │
-├── src/                            # Código-fonte principal da aplicação
-    ├── data/                       # Armazenamento de dados persistentes
-    │   └── flexmedia_totem.db      # Banco de dados SQLite com logs de interação
-    └── img/                        # Ativos visuais e imagens de teste
-    |    └── image.png              # Imagem simulada utilizada para testes de visão sem webcam
-    ├── models/                     # Artefatos de Inteligência Artificial
-    │   ├── classificador_toque.pkl # Modelo Decision Tree treinado para tipos de toque
-    │   └── metricas_ia.csv         # Relatório de acurácia e precisão do modelo
-    ├── analisar_texto.py           # Processamento de Linguagem Natural (NLP) e lógica de resposta
-    ├── dashboard.py                # Painel visual em Streamlit com gráficos analíticos
-    ├── database_setup.py           # Script para inicialização da estrutura do banco de dados
-    ├── detecta_service.py          # Serviço de Visão Computacional para detecção de presença
-    ├── ml_model.py                 # Script de treinamento e avaliação do modelo de Machine Learning
-    ├── registrar_evento.py         # Lógica de inserção e tratamento de dados no SQLite
-    └── totem_service.py            # Script central que orquestra todo o fluxo do sistema
+├── frontend/                       # Interfaces Visuais (Streamlit)
+│   ├── totem_ui.py                 # Tela interativa para o visitante
+│   └── dashboard.py                # Painel analítico para o gestor
+│
+├── test/                           # Ferramentas de desenvolvimento
+│   └── popular_dados_teste.py      # Script para gerar massa de dados fictícios
+│
+├── models/                         # Artefatos de Inteligência Artificial
+│   ├── classificador_toque.pkl     # Modelo de ML treinado
+│   └── metricas_ia.csv             # Resultados de performance (Acurácia/Precisão)
+│
+├── data/                           # Armazenamento de Dados
+│   └── flexmedia_totem.db          # Banco de dados SQLite
+│
+├── img/                            # Ativos de imagem
+│   └── image.png                   # Imagem para validação do Modo Teste
+│
+├── README.md                       # Documentação técnica e guia de execução
+├── inslacao_lib.txt                # Lista de dependências (pip install)
 
