@@ -6,3 +6,7 @@ opencv-python
 mediapipe==0.10.11
 joblib
 plotly
+fastapi
+pydantic
+uvicorn
+requests
