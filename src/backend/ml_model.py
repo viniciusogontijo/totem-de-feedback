@@ -26,16 +26,20 @@ def treinar_classificador_simples():
 
     print(f"Modelo treinado com sucesso, acurácia: {acc:.2f} | precisão: {prec:.2f}")
 
-    if not os.path.exists('models'):
-        os.makedirs('models')
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    models_path = os.path.normpath(os.path.join(base_dir, '..', 'models'))
+
+    if not os.path.exists(models_path):
+        os.makedirs(models_path)
         print("Pasta modelos criada.")
-    
-    caminho_arquivo = 'models/classificador_toque.pkl'
+
+    caminho_arquivo = os.path.join(models_path, 'classificador_toque.pkl')
     joblib.dump(model, caminho_arquivo)
     print(f"modelo salvo em: {caminho_arquivo}")
 
     metrics = pd.DataFrame({'metrica': ['Acurácia', 'Precisão'], 'valor':[acc, prec]})
-    metrics.to_csv('models/metricas_ia.csv', index=False)
+    caminho_metricas = os.path.join(models_path, 'metricas_ia.csv')
+    metrics.to_csv(caminho_metricas, index=False)
 
     return model
 

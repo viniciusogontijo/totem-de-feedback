@@ -2,10 +2,14 @@ import sqlite3
 import os
 
 def inicializar_banco():
-    if not os.path.exists('data'):
-        os.makedirs('data')
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.normpath(os.path.join(base_dir, '..', 'data'))
+
+    if not os.path.exists(db_path):
+        os.makedirs(db_path)
     
-    conn = sqlite3.connect('data/flexmedia_totem.db')
+    db_path_arquivo = os.path.join(db_path, 'flexmedia_totem.db')
+    conn = sqlite3.connect(db_path_arquivo)
     cursor = conn.cursor()
 
     cursor.execute(''' create table if not exists totens (
