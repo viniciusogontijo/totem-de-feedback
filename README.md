@@ -68,3 +68,9 @@ O modelo utiliza a Duração do Toque como feature para classificar a interaçã
 **Rode o teste:** python src/test/popular_dados_teste.py
 
 _As telas do Streamlit abrirão automaticamente no seu navegador padrão (geralmente em http://localhost:8501 e http://localhost:8502)._
+
+Tela totem
+![alt text](image-1.png)
+
+Dashboard
+![alt text](image-2.png)
